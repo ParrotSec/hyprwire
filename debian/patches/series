@@ -1,0 +1,3 @@
+Install-cmake-and-pc-files-to-CMAKE_INSTALL_DATADIR-inste.patch
+read-pending-data-before-handling-POLLHUP.patch
+fix-c++23-symbols.patch

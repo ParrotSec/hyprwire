@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# enable job control
+set -m
+
+die() {
+    echo "$1"
+    exit 1
+}
+
+export XDG_RUNTIME_DIR="$(pwd)"
+
+(stdbuf -o0 ./server | stdbuf -o0 tee ./server.log | sed -re 's/^/\[server] /') &
+sleep 1
+
+(stdbuf -o0 ./client | stdbuf -o0 tee ./client.log | sed -re 's/^/\[client] /') &
+sleep 2
+
+# kill the server
+kill -INT %1
+
+# wait 5 seconds for client to exit itself
+sleep 5
+
+# client should have exited itself after receiving fatal protocol error
+if kill -0 %2 2>/dev/null; then
+    echo "Client is STILL ALIVE — this is a failure!"
+    kill -INT %2
+    die "Client should have died after fatal protocol error!"
+else
+    echo "Client exited on its own (correct behavior)."
+fi
+wait
+
+expected_client_strings=(
+    'test protocol supported at version 1. Binding.'
+    'Bound!'
+    'Sent hello!'
+    'Will send fd'
+
+    # these two sometimes don't show up due to race conditions in the client
+    # code (server sends messages before handler callback is registered)
+    # 'Server says Hello manager
+    # 'Server says on object Hello Object'
+
+    # client sometimes terminates before the error is logged
+    # '[hw] err: fatal protocol error: object 2 error 1: Important error occurred!'
+
+)
+
+expected_server_strings=(
+    'Object bound XD'
+    'Recvd message: Hello!'
+    'Recvd fd'
+    'Received 2 fds'
+    'with data: pipe!'
+    'with data: o kurwa'
+    'with data: bober!!'
+    'Got array message: "Hello, via, array!"'
+    'Got array message: ""'
+    'Got uint array message: "69, 420, 2137"'
+    'Object says hello: Hello on object'
+    'Object sent enum: 4'
+    'Erroring out the client!'
+)
+
+for s in "${expected_client_strings[@]}"; do
+    echo -n "Checking client.log for '$s'... "
+    if grep -q --fixed-strings "$s" client.log; then
+        echo "Pass"
+    else
+        die "Fail"
+    fi
+done
+
+for s in "${expected_server_strings[@]}"; do
+    echo -n "Checking server.log for '$s'... "
+    if grep -q --fixed-strings "$s" server.log; then
+        echo "Pass"
+    else
+        die "Fail"
+    fi
+done

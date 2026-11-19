@@ -1,0 +1,70 @@
+hyprwire (0.3.1-3parrot1) echo; urgency=medium
+
+  * Non-maintainer upload.
+  * Rebuild for Parrot os. 
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Thu, 19 Nov 2026 16:09:53 +0100
+
+hyprwire (0.3.1-3~bpo13+1) trixie-backports; urgency=medium
+
+  * Rebuild for trixie-backports.
+  * replace c++23 symbol append_range with insert
+
+ -- Carl Keinath <carl.keinath@gmail.com>  Tue, 02 Jun 2026 23:31:54 +0200
+
+hyprwire (0.3.1-3) unstable; urgency=medium
+
+  * d/patches: ensure pending data is read
+  * d/control:
+    - append Uploaders
+    - bump S-V to 4.7.4, remove Priority: optional
+
+ -- Carl Keinath <carl.keinath@gmail.com>  Mon, 18 May 2026 20:31:51 +0800
+
+hyprwire (0.3.1-2) unstable; urgency=medium
+
+  * Update autopkgtests and fix error on ppc64el
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 18 May 2026 20:26:29 +0800
+
+hyprwire (0.3.1-1) unstable; urgency=medium
+
+  * New upstream version 0.3.1
+  * Drop upstreamed patch
+
+ -- Chow Loong Jin <hyperair@debian.org>  Tue, 28 Apr 2026 16:40:23 +0800
+
+hyprwire (0.3.0-3) unstable; urgency=medium
+
+  * d/patches: write full 32-bit object id in resolveSeq
+
+ -- Carl Keinath <carl.keinath@gmail.com>  Sun, 15 Feb 2026 17:09:13 +0100
+
+hyprwire (0.3.0-2) unstable; urgency=medium
+
+  * Fix autopkgtest on slow architectures
+
+ -- Chow Loong Jin <hyperair@debian.org>  Mon, 09 Feb 2026 13:34:59 +0800
+
+hyprwire (0.3.0-1) unstable; urgency=medium
+
+  * New upstream version 0.3.0
+  * Rename library for soname bump
+
+ -- Chow Loong Jin <hyperair@debian.org>  Fri, 06 Feb 2026 11:40:50 +0800
+
+hyprwire (0.2.1-1) unstable; urgency=medium
+
+  * New upstream version 0.2.1
+  * bump SOVERSION for libhyprwire
+  * update autopkgtest suite:
+    - append expected strings
+    - make sure client has exited
+
+ -- Carl Keinath <carl.keinath@gmail.com>  Sun, 07 Dec 2025 13:13:17 +0100
+
+hyprwire (0.1.1-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #1118694)
+
+ -- Carl Keinath <carl.keinath@gmail.com>  Fri, 05 Dec 2025 23:08:43 +0800

@@ -1,0 +1,92 @@
+Source: hyprwire
+Section: libs
+Maintainer: Debian Hyprland Maintainers <team+hyprland@tracker.debian.org>
+Uploaders:
+ Carl Keinath <carl.keinath@gmail.com>,
+ Chow Loong Jin <hyperair@debian.org>,
+ Alex Myczko <tar@debian.org>,
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake,
+ libffi-dev,
+ libhyprutils-dev (>= 0.9.0),
+ libpugixml-dev,
+ pkgconf,
+Standards-Version: 4.7.4
+Homepage: https://github.com/hyprwm/hyprwire
+Vcs-Browser: https://salsa.debian.org/hyprland-team/hyprwire
+Vcs-Git: https://salsa.debian.org/hyprland-team/hyprwire.git
+
+Package: libhyprwire-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libhyprwire3 (= ${binary:Version}),
+ ${misc:Depends},
+Description: Fast and consistent wire protocol for IPC -- development files
+ Hyprwire is a fast and consistent wire protocol, and its implementation. This
+ is essentially a "method" for processes to talk to each other. It is heavily
+ inspired by Wayland, and heavily anti-inspired by D-Bus.
+ .
+ Hyprwire is:
+  - Strict: both sides need to be on the same page to communicate. No "random
+    data" is allowed.
+  - Fast: initial handshakes are very simple and allow for quick information
+    exchange (including one-shot operations)
+  - Simple to use: the API uses modern C++ and abstracts away any
+    memory-sensitive operations
+  - Simple internally: the protocol itself is simple and straightforward to
+    parse / write your own implementation
+ .
+ This package contains the headers and other development support files needed
+ for compiling and linking applications and libraries which use this library.
+
+Package: libhyprwire3
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: Fast and consistent wire protocol for IPC -- binary files
+ Hyprwire is a fast and consistent wire protocol, and its implementation. This
+ is essentially a "method" for processes to talk to each other. It is heavily
+ inspired by Wayland, and heavily anti-inspired by D-Bus.
+ .
+ Hyprwire is:
+  - Strict: both sides need to be on the same page to communicate. No "random
+    data" is allowed.
+  - Fast: initial handshakes are very simple and allow for quick information
+    exchange (including one-shot operations)
+  - Simple to use: the API uses modern C++ and abstracts away any
+    memory-sensitive operations
+  - Simple internally: the protocol itself is simple and straightforward to
+    parse / write your own implementation
+ .
+ This package contains the shared library needed for running applications which
+ use this library.
+
+Package: hyprwire-scanner
+Architecture: any
+Multi-Arch: foreign
+Depends:
+ libpugixml1v5,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: Scanner for the Hyprwire protocol
+ Hyprwire is a fast and consistent wire protocol, and its implementation. This
+ is essentially a "method" for processes to talk to each other. It is heavily
+ inspired by Wayland, and heavily anti-inspired by D-Bus.
+ .
+ Hyprwire is:
+  - Strict: both sides need to be on the same page to communicate. No "random
+    data" is allowed.
+  - Fast: initial handshakes are very simple and allow for quick information
+    exchange (including one-shot operations)
+  - Simple to use: the API uses modern C++ and abstracts away any
+    memory-sensitive operations
+  - Simple internally: the protocol itself is simple and straightforward to
+    parse / write your own implementation
+ .
+ This package provides the Hyprwire protocol scanner for generating
+ application interfaces.
